@@ -22,6 +22,7 @@ A Python application that lets you control your media player using hand gestures
 
 ## Demo
 <!-- Add a GIF or screenshot here if available -->
+<a href="https://drive.google.com/file/d/1oPHzfVVFSbKkX69vt_EMWE7VYeRwPbvc/view?usp=drive_link"></a>
 
 ## Installation
 1. **Python 3.7+ required**
