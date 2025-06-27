@@ -47,13 +47,17 @@ def get_finger_states(landmarks):
 
 def classify_gesture(fingers):
     """
-    Map finger states to gestures:
-    - [thumb, index, middle, ring, pinky]
+    Classify based on finger states.
+    0 = down, 1 = up, 2 = thumb down
     """
     if fingers == [1, 0, 0, 0, 0]:
         return "Thumbs Up"
     elif fingers == [2, 0, 0, 0, 0]:
         return "Thumbs Down"
+    elif fingers == [0, 1, 1, 0, 0]:
+        return "Mute"
+    elif fingers == [0, 1, 0, 0, 1]:
+        return "Shuffle"
     elif fingers == [0, 1, 1, 1, 1]:
         return "Open Palm"
     elif fingers == [0, 0, 0, 0, 0]:

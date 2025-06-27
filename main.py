@@ -19,6 +19,8 @@ gesture_colors = {
     "Thumbs Up": (255, 255, 0),
     "Thumbs Down": (255, 0, 0),
     "Pointing": (255, 0, 255),
+    "Mute": (0, 100, 255),
+    "Shuffle": (128, 0, 255),
     "Unknown": (200, 200, 200),
     "No Hand Detected": (100, 100, 100)
 }
@@ -35,14 +37,22 @@ def perform_action(gesture, test_mode=False):
         "Fist": ("space", "Pause"),
         "Thumbs Up": ("volumeup", "Volume Up"),
         "Thumbs Down": ("volumedown", "Volume Down"),
-        "Pointing": ("nexttrack", "Next Track")
+        "Pointing": ("nexttrack", "Next Track"),
+        "Mute": ("volumemute", "Mute"),
+        "Shuffle": (["ctrl", "s"], "Shuffle")
     }
+
     if gesture in action_map:
         key, action = action_map[gesture]
+
         if test_mode:
             print(f"[TEST MODE] Action: {action}")
         else:
-            pyautogui.press(key)
+            # Handle hotkey (like ctrl+s for shuffle)
+            if isinstance(key, list):
+                pyautogui.hotkey(*key)
+            else:
+                pyautogui.press(key)
             print(f"Action: {action}")
 
 # Start webcam
@@ -84,7 +94,7 @@ with mp_hands.Hands(
 
         # Draw gesture overlay
         gesture_color = gesture_colors.get(display_gesture, (255, 255, 255))
-        cv2.rectangle(frame, (5, 5), (360, 60), gesture_color, cv2.FILLED)
+        cv2.rectangle(frame, (5, 5), (400, 60), gesture_color, cv2.FILLED)
         cv2.putText(frame, f'Gesture: {display_gesture}', (10, 45),
                     cv2.FONT_HERSHEY_SIMPLEX, 1, (0, 0, 0), 2)
 
